@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<script src="/jq/jquery-3.6.0.min.js"></script>-->
+    <script th:src="@{/jq/jquery_2_1.min.js}"></script>
+    <script type="text/javascript">
+        function add() {
+            // var nameById = document.getElementById('name');
+            // var name = nameById.value
+            var name=$("#name").val();
+
+            $.ajax({
+                url: "/insert",
+                data: {name: name},
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == "1000") {
+                        alert(data.msg)
+                        location.href="http://localhost:8080/"
+                    } else {
+                        alert(data.msg)
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<table>
+    <tr>
+    <tr>
+        <td>名称</td>
+        <td><input type="text" id="name"/></td>
+    </tr>
+    <!--<tr><td>时间</td><td><input type="date" id="starttime"/></td></tr>-->
+    </tr>
+
+</table>
+<input type="button" onclick="add()" value="提交"/>
+</body>
+
+
+</html>

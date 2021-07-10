@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:href="@{/jq/jquery_2_1.min.js}"></script>
+</head>
+<body>
+<div>
+    <a th:href="@{/toinsert}">添加</a>
+    <a th:href="@{/}">刷新</a>
+</div>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>食品名称</th>
+            <th>食品时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody th:each="food : ${foods}">
+        <tr>
+            <th th:text="${food.name}"></th>
+            <th th:text="${#dates.format(food.starttime,'yyyy-MM-dd')}"></th>
+            <th>
+                <a th:href="@{'/toupdate?id='+${food.id}}">修改</a>
+                <a th:href="@{'/delete?id='+${food.id}}" onclick="deleteFood()" >删除</a>
+            </th>
+
+        </tr>
+
+
+    </tbody>
+</table>
+</body>
+<script>
+function deleteFood() {
+    if (!confirm("请确认是否要删除?")) {
+        window.event.returnValue=false;
+    }
+}
+</script>
+</html>

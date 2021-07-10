@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{/jq/jquery_2_1.min.js}"></script>
+</head>
+<body>
+<input style="display: none" type="text" id="id" th:value="${food.id}">
+<table>
+    <tr>
+        <tr>
+            <td>商品名称:</td><td><input type="text" id="name" th:value="${food.name}" /></td>
+        </tr>
+        <!--<tr>-->
+            <!--<td>商品时间</td><td><input type="text" id="starttime" th:value="${#dates.format(food.starttime,'yyyy-MM-dd')}" /></td>-->
+        <!--</tr>-->
+    </tr>
+</table>
+<input type="button" onclick="update()" value="提交" />
+</body>
+<script>
+    function update() {
+        var name=$("#name").val();
+        var id=$("#id").val();
+
+        $.ajax({
+            url: "/update",
+            data: {name: name,id: id},
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data.code == "1000") {
+                    alert(data.msg);
+                    location.href="http://localhost:8080/"
+                }else {
+                    alert(data.msg);
+                }
+            }
+        })
+    }
+</script>
+</html>
